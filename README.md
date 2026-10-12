@@ -27,15 +27,34 @@ Workbench is the client; MySQL Server must also be installed and running locally
 1. Connect to your local MySQL server in Workbench with an administrator account.
 2. File â†’ Open SQL Script â†’ `database/setup.sql`, then execute the entire script using the lightning button.
 3. Refresh Schemas. Confirm `mini_store` contains `categories`, `products`, `users`, `carts`, `cart_item`.
-4. Copy `.env.example` to `.env`. Set `DB_USERNAME` and `DB_PASSWORD` to a local account with access to `mini_store`.
-5. For a dedicated account, execute this SQL with your chosen password, then use those values in `.env`:
+4. For a dedicated account, execute this SQL with your chosen password (skip `CREATE USER` if the account already exists):
 
 ```sql
 CREATE USER 'mini_store_app'@'localhost' IDENTIFIED BY 'your_chosen_password';
 GRANT SELECT, INSERT, UPDATE, DELETE ON mini_store.* TO 'mini_store_app'@'localhost';
 ```
 
-6. Run the command above. Java 17+ is required; use Java 17 for this project's tested setup.
+5. Copy `.env.example` to `.env`. Set `DB_USERNAME` and `DB_PASSWORD` to the account above, or another local account with access to `mini_store`.
+6. With the application stopped, open `database/seed.sql` in Workbench and execute the entire script. Run it in one session at a time. On an SQL error, execute `ROLLBACK;` and resolve the error before retrying.
+7. From the project folder, start the application (Java 17 is the tested setup):
+
+```powershell
+.\mvnw.cmd spring-boot:run
+```
+
+Schema setup and demo-data seeding are separate, manual operations. `setup.sql` creates the tables;
+`seed.sql` inserts missing demo records. Neither the seed script nor demo-data initialization runs on application startup.
+On an empty database the seed creates Stationery (Notebook 250.00, Pen 100.00), Books (Spring Notes 150.00),
+Demo Customer (`demo@ministore.example`) with 3 notebooks and 1 pen totaling 850.00, and Team Customer
+(`team@ministore.example`) with an empty cart. In the UI, open Cart and select Demo Customer to load it.
+
+Reruns reuse categories by name, products by name/category/price, customers by the reserved demo emails,
+and carts by customer. Where matching category/product rows already exist, the lowest ID is used.
+Names are not unique in this schema, so run the seed sequentially with the app stopped.
+Existing records, cart UUIDs, prices and quantities are preserved; seeding does not reset an edited demo cart
+or empty an existing Team cart. Consequently an existing edited cart may have a different total.
+Products with the same name but a different price are preserved alongside the demo product.
+New cart UUIDs use `UUID_TO_BIN(..., 0)` for the standard `BINARY(16)` byte order used by JPA.
 
 `.env` uses `KEY=value` properties syntax, without surrounding quotes. Keep it private; `.gitignore` excludes it.
 OS environment variables can also supply `DB_URL`, `DB_USERNAME`, `DB_PASSWORD`, `SERVER_PORT`.
