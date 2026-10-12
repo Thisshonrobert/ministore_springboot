@@ -1,0 +1,37 @@
+<!--member 4-->
+<!DOCTYPE html>
+    <html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+      <title>Customer cart · Mini Store</title><link rel="stylesheet" href="/css/style.css">
+      <script type="module" src="/js/cart.js"></script>
+    </head><body>
+      <header th:replace="~{fragments :: nav}"></header>
+      <main>
+        <div class="page-header"><span class="eyebrow">THE STORE DESK / 04</span>
+          <h1>Customer cart</h1><p class="intro">One customer, one cart. Add products, adjust quantities, and see totals update.</p>
+        </div>
+        <div id="status" role="status" aria-live="polite"></div>
+
+<div class="workspace">
+  <section class="panel"><h2>Choose a customer</h2>
+    <label>Customer<select id="customer"><option value="">Choose a customer</option></select></label>
+    <div class="actions"><button id="load" class="secondary">Reload cart</button><button id="create">Create cart</button></div>
+    <p id="customer-hint" class="quiet" style="margin-top:16px">Create a customer first if the list is empty.</p>
+    <hr style="border:0;border-top:1px solid var(--line);margin:24px 0">
+    <h2>Add a product</h2><form id="add-form">
+      <label>Product<select id="product" name="productId" required><option value="">Choose a product</option></select></label>
+      <button id="add" type="submit">Add to cart</button>
+    </form><p class="quiet" style="margin-top:16px">Adding the same product again increases its quantity. Limit: 100.</p>
+  </section>
+  <section class="panel list-panel"><div class="list-heading"><h2>Your cart</h2><span id="cart-label" class="count">NO CART SELECTED</span></div>
+    <div class="table-wrap"><table><thead><tr><th scope="col">Product</th><th scope="col">Price</th><th scope="col">Qty</th><th scope="col">Line total</th><th scope="col">Actions</th></tr></thead><tbody id="rows"></tbody></table></div>
+    <p id="empty" class="empty">Select a customer to load or create their cart.</p>
+    <div class="total"><span>Total</span><strong id="total">₹0.00</strong></div>
+    <div class="actions" style="margin-top:24px"><button id="clear" class="secondary">Clear items</button><button id="delete-cart" class="danger">Delete cart</button></div>
+    <p class="quiet" style="margin-top:16px">Totals use current product prices. Deleting a cart keeps its customer and products.</p>
+  </section>
+</div>
+
+        <footer><span>MINI STORE / FOUR MEMBERS, ONE PROJECT</span><span>LOCAL MYSQL · SPRING BOOT</span></footer>
+      </main>
+    </body></html>
