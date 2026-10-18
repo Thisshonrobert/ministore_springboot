@@ -4,7 +4,9 @@ package com.codewithmosh.store.controllers;
 import com.codewithmosh.store.dtos.ErrorResponse;
 import com.codewithmosh.store.exceptions.BusinessRuleException;
 import com.codewithmosh.store.exceptions.ConflictException;
+import com.codewithmosh.store.exceptions.ForbiddenException;
 import com.codewithmosh.store.exceptions.ResourceNotFoundException;
+import com.codewithmosh.store.exceptions.UnauthorizedException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -44,6 +46,16 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<ErrorResponse> resourceNotFound(ResourceNotFoundException exception) {
         return errorResponse(404, exception.getMessage());
+    }
+
+    @ExceptionHandler(UnauthorizedException.class)
+    public ResponseEntity<ErrorResponse> unauthorized(UnauthorizedException exception) {
+        return errorResponse(401, exception.getMessage());
+    }
+
+    @ExceptionHandler(ForbiddenException.class)
+    public ResponseEntity<ErrorResponse> forbidden(ForbiddenException exception) {
+        return errorResponse(403, exception.getMessage());
     }
 
     @ExceptionHandler(ConflictException.class)
