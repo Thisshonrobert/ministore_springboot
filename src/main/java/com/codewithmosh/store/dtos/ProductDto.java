@@ -1,13 +1,52 @@
 //member 2
 package com.codewithmosh.store.dtos;
 
-import lombok.Data;
-import jakarta.validation.constraints.*;
-@Data
+import java.math.BigDecimal;
+
 public class ProductDto {
     private Long id;
     private String name;
     private String description;
-    private java.math.BigDecimal price;
+    private BigDecimal price;
     private Byte categoryId;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
+    }
+
+    public Byte getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(Byte categoryId) {
+        this.categoryId = categoryId;
+    }
 }

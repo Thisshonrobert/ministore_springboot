@@ -1,11 +1,34 @@
 //member 4
 package com.codewithmosh.store.dtos;
 
-import lombok.Data;
-import jakarta.validation.constraints.*;
-@Data
+import java.math.BigDecimal;
+
 public class CartItemDto {
     private CartProductDto product;
     private int quantity;
-    private java.math.BigDecimal totalPrice;
+    private BigDecimal totalPrice;
+
+    public CartProductDto getProduct() {
+        return product;
+    }
+
+    public void setProduct(CartProductDto product) {
+        this.product = product;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    public BigDecimal getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(BigDecimal totalPrice) {
+        this.totalPrice = totalPrice;
+    }
 }

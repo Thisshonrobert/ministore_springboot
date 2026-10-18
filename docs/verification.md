@@ -52,6 +52,24 @@ with the application stopped because category/product names have no unique const
 Existing prices, quantities and cart ownership are preserved; an edited demo cart is not reset to 850.00,
 and a pre-existing Team cart is not cleared. No schema change or automatic startup seeding was added.
 
+## Refactor verification — 18 October 2026
+
+- Removed Lombok, MapStruct and Thymeleaf from `pom.xml` and the annotation-processor configuration.
+  Removed all related imports/annotations, the Thymeleaf templates, the page controller and the template JavaScript/CSS.
+- Replaced generated accessors, constructors and mappers with explicit Java methods. Replaced the remaining
+  stream chains with ordinary loops while preserving validation, relationships, transactions and API responses.
+- `.\mvnw.cmd clean test`: 9 tests, 0 failures, 0 errors, 0 skipped (H2 test profile).
+  The former Thymeleaf page smoke test was removed because that UI was intentionally removed.
+- `.\mvnw.cmd package -DskipTests`: BUILD SUCCESS.
+- The packaged application started against local MySQL 8.0.45 and passed Hibernate schema validation.
+  A temporary HTTP check created a category, product, customer and cart; added the same product twice
+  (quantity 2, total 246.90), updated the quantity to 3 (total 370.35), rejected quantity 101 with 400,
+  cleared the items (total 0), and deleted the cart/customer/product/category with 204 responses.
+  An invalid email returned 400 with a fieldErrors entry. Temporary rows were removed; the original
+  demo categories, products and customers were unchanged.
+- `/`, `/ui/products` and the other former page routes now return the JSON 404 response, confirming that
+  the backend is API-only and ready for a React frontend.
+
 ## Limits and setup
 
 Category ID intentionally retains the plan's Byte/TINYINT type: at most 127 generated IDs,

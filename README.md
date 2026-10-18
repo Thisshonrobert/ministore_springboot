@@ -2,7 +2,8 @@
 
 A reduced version of [Mosh's Spring Boot store](https://github.com/mosh-hamedani/spring-api-starter).
 Adapted from the local source in `F:/mottamosh/spring-api-starter` using the updated four-member plan.
-One Java 17 / Spring Boot 3.4.1 application, MySQL 8, Thymeleaf pages, vanilla JavaScript, Lombok, MapStruct 1.5.5.Final.
+One Java 17 / Spring Boot 3.4.1 application, MySQL 8, and a REST API written with explicit Java code
+(no Lombok, MapStruct, or Thymeleaf). The backend is ready for a React frontend.
 
 ## Run on this machine
 
@@ -17,8 +18,9 @@ cd C:\Users\thiss\Desktop\dev\sprinboot_mini_store
 The local MySQL database and dedicated app account have been created; `.env` is configured.
 Demo data is available locally (see `docs/verification.md`).
 
-Open http://localhost:8080. Start with Categories, then Products, Customers, and Cart.
-To use another port, edit `SERVER_PORT` in `.env`. Stop with Ctrl+C.
+The application exposes the REST API at http://localhost:8080. It has no server-rendered pages,
+so use an API client or a React frontend. To use another port, edit `SERVER_PORT` in `.env`.
+Stop with Ctrl+C.
 
 ## Set up MySQL on another machine (Workbench)
 
@@ -46,7 +48,7 @@ Schema setup and demo-data seeding are separate, manual operations. `setup.sql` 
 `seed.sql` inserts missing demo records. Neither the seed script nor demo-data initialization runs on application startup.
 On an empty database the seed creates Stationery (Notebook 250.00, Pen 100.00), Books (Spring Notes 150.00),
 Demo Customer (`demo@ministore.example`) with 3 notebooks and 1 pen totaling 850.00, and Team Customer
-(`team@ministore.example`) with an empty cart. In the UI, open Cart and select Demo Customer to load it.
+(`team@ministore.example`) with an empty cart. Load Demo Customer's cart with `GET /users/{id}/cart`.
 
 Reruns reuse categories by name, products by name/category/price, customers by the reserved demo emails,
 and carts by customer. Where matching category/product rows already exist, the lowest ID is used.
@@ -66,13 +68,12 @@ H2 is only a test dependency; the running app uses local MySQL.
 
 | Member | Feature | Shared work |
 |---|---|---|
-| 1 | Category CRUD | Navigation, CSS, HomeController, SQL setup |
+| 1 | Category CRUD | SQL setup, shared API conventions |
 | 2 | Product CRUD + category filter | Product/category mapping |
-| 3 | Customer name/email CRUD | Exceptions, error DTO, shared API helper |
+| 3 | Customer name/email CRUD | Exceptions, error DTO, shared JSON error handler |
 | 4 | Customer-linked cart | Build/configuration, totals, integration tests |
 
-Java and JavaScript begin with `//member N`; HTML/CSS/SQL/configuration use their valid comment syntax.
-Generated MapStruct implementations are build output; read them but do not edit them.
+Java begins with `//member N`; SQL/configuration use their valid comment syntax.
 Maven wrapper files are copied vendor tooling, with their original license comments preserved.
 
 Read your learning guide: `docs/member-1.md`, `docs/member-2.md`, `docs/member-3.md`, or `docs/member-4.md`.
@@ -106,9 +107,10 @@ Prices allow 8 integer digits and 2 decimal digits; quantity is 1â€“100. To
 .\mvnw.cmd package
 ```
 
-Ten integration scenarios test real controllers/services/repositories with an isolated in-memory H2 database.
+Nine integration scenarios test real controllers/services/repositories with an isolated in-memory H2 database.
 They verify DTO mapping, relationships, error responses and persistence across HTTP requests.
+The former Thymeleaf page smoke test was removed with the server-rendered UI.
 For real MySQL/restart verification, see `docs/verification.md`.
 
 Excluded: login/JWT/passwords, addresses, profiles, wishlist, checkout, orders, payments, inventory, uploads, pagination.
-This is a local management/learning app. Customer selection is not login.
+This is a local management/learning app. Customer selection is not login. A React frontend can consume the REST API.

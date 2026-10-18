@@ -145,8 +145,4 @@ class StoreIntegrationTests {
             assertThat(call(get("/carts/" + c), null, 200).get("items").get(0).get("quantity").asInt()).isEqualTo(5);
         } finally { workers.shutdownNow(); }
     }
-    @Test void pagesAreServedWithoutLogin() throws Exception {
-        for (String page : new String[]{"categories", "products", "customers", "cart"})
-            mvc.perform(get("/ui/" + page)).andExpect(status().isOk()).andExpect(content().contentTypeCompatibleWith(MediaType.TEXT_HTML));
-    }
 }

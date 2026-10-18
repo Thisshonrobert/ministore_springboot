@@ -1,17 +1,39 @@
 //member 1
 package com.codewithmosh.store.mappers;
 
+import com.codewithmosh.store.dtos.CategoryDto;
+import com.codewithmosh.store.dtos.CategoryRequest;
 import com.codewithmosh.store.entities.Category;
-    import com.codewithmosh.store.dtos.*;
-    import org.mapstruct.*;
-    @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.ERROR)
-    public interface CategoryMapper {
+import org.springframework.stereotype.Component;
 
-        CategoryDto toDto(Category entity);
-        @Mapping(target = "id", ignore = true)
-@Mapping(target = "products", ignore = true)
-        Category toEntity(CategoryRequest request);
-        @Mapping(target = "id", ignore = true)
-@Mapping(target = "products", ignore = true)
-        void update(CategoryRequest request, @MappingTarget Category entity);
+@Component
+public class CategoryMapper {
+    public CategoryDto toDto(Category category) {
+        if (category == null) {
+            return null;
+        }
+
+        CategoryDto dto = new CategoryDto();
+        dto.setId(category.getId());
+        dto.setName(category.getName());
+        return dto;
     }
+
+    public Category toEntity(CategoryRequest request) {
+        if (request == null) {
+            return null;
+        }
+
+        Category category = new Category();
+        category.setName(request.getName());
+        return category;
+    }
+
+    public void update(CategoryRequest request, Category category) {
+        if (request == null) {
+            return;
+        }
+
+        category.setName(request.getName());
+    }
+}

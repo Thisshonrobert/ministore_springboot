@@ -1,10 +1,23 @@
 //member 1
 package com.codewithmosh.store.dtos;
 
-import lombok.Data;
-import jakarta.validation.constraints.*;
-@Data
 public class CategoryDto {
     private Byte id;
     private String name;
+
+    public Byte getId() {
+        return id;
+    }
+
+    public void setId(Byte id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 }
