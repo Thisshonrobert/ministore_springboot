@@ -1,16 +1,16 @@
 //member 3
-package com.codewithmosh.store.services;
+package com.accenture.store.services;
 
-import com.codewithmosh.store.dtos.LoginRequest;
-import com.codewithmosh.store.dtos.RegisterRequest;
-import com.codewithmosh.store.dtos.UserDto;
-import com.codewithmosh.store.entities.Cart;
-import com.codewithmosh.store.entities.User;
-import com.codewithmosh.store.exceptions.ConflictException;
-import com.codewithmosh.store.exceptions.UnauthorizedException;
-import com.codewithmosh.store.mappers.UserMapper;
-import com.codewithmosh.store.repositories.CartRepository;
-import com.codewithmosh.store.repositories.UserRepository;
+import com.accenture.store.dtos.LoginRequest;
+import com.accenture.store.dtos.RegisterRequest;
+import com.accenture.store.dtos.UserDto;
+import com.accenture.store.entities.Cart;
+import com.accenture.store.entities.User;
+import com.accenture.store.exceptions.ConflictException;
+import com.accenture.store.exceptions.UnauthorizedException;
+import com.accenture.store.mappers.UserMapper;
+import com.accenture.store.repositories.CartRepository;
+import com.accenture.store.repositories.UserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

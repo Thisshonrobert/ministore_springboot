@@ -1,7 +1,7 @@
 //member 3
-package com.codewithmosh.store.repositories;
+package com.accenture.store.repositories;
 
-import com.codewithmosh.store.entities.User;
+import com.accenture.store.entities.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

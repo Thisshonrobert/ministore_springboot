@@ -28,3 +28,20 @@ server:
 app:
   cors:
     allowed-origins: "${CORS_ALLOWED_ORIGINS:http://localhost:5173,http://127.0.0.1:5173,http://localhost:4173,http://127.0.0.1:4173}"
+  #member 4
+  # The AI features read their settings from the environment. The key never
+  # reaches the browser: only this backend calls the provider.
+  ai:
+    api-key: "${AI_API_KEY:}"
+    model: "${AI_MODEL:gemini-3.5-flash}"
+    base-url: "${AI_BASE_URL:https://generativelanguage.googleapis.com/v1beta}"
+    timeout-seconds: ${AI_TIMEOUT_SECONDS:30}
+    max-output-tokens: ${AI_MAX_OUTPUT_TOKENS:400}
+    # -1 leaves the thinking setting out of the request. 0 turns thinking off on
+    # models that support it, which makes the assistant answer faster.
+    thinking-budget: ${AI_THINKING_BUDGET:-1}
+  reviews:
+    # Too few reviews make a misleading summary, so they are summarised only from this many.
+    minimum-for-summary: ${REVIEWS_MINIMUM_FOR_SUMMARY:3}
+    # Cached summaries expire after this many hours, and a new review clears them.
+    summary-ttl-hours: ${REVIEW_SUMMARY_TTL_HOURS:168}

@@ -1,5 +1,5 @@
 //member 3
-package com.codewithmosh.store.dtos;
+package com.accenture.store.dtos;
 
 public record CsrfTokenResponse(String token) {
 }

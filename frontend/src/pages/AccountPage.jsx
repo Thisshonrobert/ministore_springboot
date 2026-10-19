@@ -1,13 +1,12 @@
+//member 3
 import { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { toast } from 'sonner'
 import {
   ArrowRight,
-  Fingerprint,
   Loader2,
   LogOut,
   Mail,
-  ShieldCheck,
   ShoppingBag,
   UserRound,
 } from 'lucide-react'
@@ -16,7 +15,6 @@ import { Button } from '@/components/ui/button'
 import {
   Card,
   CardContent,
-  CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
@@ -136,18 +134,6 @@ export function AccountPage() {
                 <p className="mt-1 truncate text-sm">{user?.email}</p>
               </div>
             </div>
-
-            <div className="flex items-start gap-3">
-              <span className="grid size-9 shrink-0 place-items-center rounded-lg bg-secondary">
-                <Fingerprint className="size-4 text-primary" aria-hidden="true" />
-              </span>
-              <div>
-                <p className="text-xs font-semibold tracking-[0.14em] text-muted-foreground uppercase">
-                  Identity source
-                </p>
-                <p className="mt-1 text-sm">HttpSession attribute, set at sign-in</p>
-              </div>
-            </div>
           </CardContent>
 
           <CardFooter className="border-t border-border/70 pt-5">
@@ -222,42 +208,6 @@ export function AccountPage() {
                 </Link>
               </Button>
             </CardFooter>
-          </Card>
-
-          <Card className="rounded-2xl bg-secondary/45">
-            <CardHeader>
-              <div className="flex items-center gap-3">
-                <span className="grid size-10 place-items-center rounded-full bg-card">
-                  <ShieldCheck className="size-5 text-primary" aria-hidden="true" />
-                </span>
-                <div>
-                  <CardTitle className="text-xl">How the session works</CardTitle>
-                  <CardDescription>Small decisions, written down.</CardDescription>
-                </div>
-              </div>
-            </CardHeader>
-            <CardContent>
-              <ul className="space-y-3 text-sm leading-relaxed text-muted-foreground">
-                <li className="flex gap-3">
-                  <span className="mt-1.5 size-1.5 shrink-0 rounded-full bg-accent" />
-                  Your session ID lives in an HttpOnly cookie. JavaScript cannot read it.
-                </li>
-                <li className="flex gap-3">
-                  <span className="mt-1.5 size-1.5 shrink-0 rounded-full bg-accent" />
-                  The session ID is rotated when you sign in, and the session is invalidated on sign
-                  out.
-                </li>
-                <li className="flex gap-3">
-                  <span className="mt-1.5 size-1.5 shrink-0 rounded-full bg-accent" />
-                  The backend derives your customer from the session, never from a customer ID sent
-                  by the page.
-                </li>
-                <li className="flex gap-3">
-                  <span className="mt-1.5 size-1.5 shrink-0 rounded-full bg-accent" />
-                  No passwords or session identifiers are kept in localStorage.
-                </li>
-              </ul>
-            </CardContent>
           </Card>
         </div>
       </div>

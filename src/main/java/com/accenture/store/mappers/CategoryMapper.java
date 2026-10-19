@@ -1,9 +1,9 @@
 //member 1
-package com.codewithmosh.store.mappers;
+package com.accenture.store.mappers;
 
-import com.codewithmosh.store.dtos.CategoryDto;
-import com.codewithmosh.store.dtos.CategoryRequest;
-import com.codewithmosh.store.entities.Category;
+import com.accenture.store.dtos.CategoryDto;
+import com.accenture.store.dtos.CategoryRequest;
+import com.accenture.store.entities.Category;
 import org.springframework.stereotype.Component;
 
 @Component

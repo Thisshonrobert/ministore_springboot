@@ -1,10 +1,10 @@
 //member 2
-package com.codewithmosh.store.mappers;
+package com.accenture.store.mappers;
 
-import com.codewithmosh.store.dtos.ProductDto;
-import com.codewithmosh.store.dtos.ProductRequest;
-import com.codewithmosh.store.entities.Category;
-import com.codewithmosh.store.entities.Product;
+import com.accenture.store.dtos.ProductDto;
+import com.accenture.store.dtos.ProductRequest;
+import com.accenture.store.entities.Category;
+import com.accenture.store.entities.Product;
 import org.springframework.stereotype.Component;
 
 @Component

@@ -1,9 +1,9 @@
 //member 1
-package com.codewithmosh.store.controllers;
+package com.accenture.store.controllers;
 
-import com.codewithmosh.store.dtos.CategoryDto;
-import com.codewithmosh.store.dtos.CategoryRequest;
-import com.codewithmosh.store.services.CategoryService;
+import com.accenture.store.dtos.CategoryDto;
+import com.accenture.store.dtos.CategoryRequest;
+import com.accenture.store.services.CategoryService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;

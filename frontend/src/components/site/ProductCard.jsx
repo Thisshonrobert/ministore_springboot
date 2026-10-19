@@ -1,3 +1,5 @@
+//member 3
+import { Link } from 'react-router-dom'
 import { BookOpen, Loader2, Package, PenLine, Plus } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { formatPrice } from '@/lib/format'
@@ -81,7 +83,12 @@ export function ProductCard({ product, categoryName, index = 0, onAdd, adding = 
       <div className="flex flex-1 flex-col gap-4 p-5">
         <div className="space-y-1.5">
           <h3 className="font-display text-xl leading-tight font-semibold tracking-tight">
-            {product.name}
+            <Link
+              to={`/products/${product.id}`}
+              className="underline-offset-4 transition-colors hover:text-primary hover:underline"
+            >
+              {product.name}
+            </Link>
           </h3>
           <p className="min-h-10 text-sm leading-relaxed text-muted-foreground">
             {product.description || 'A useful thing, chosen for the everyday shelf.'}

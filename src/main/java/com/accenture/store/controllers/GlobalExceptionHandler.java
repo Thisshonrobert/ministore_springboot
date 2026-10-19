@@ -1,12 +1,13 @@
 //member 3
-package com.codewithmosh.store.controllers;
+package com.accenture.store.controllers;
 
-import com.codewithmosh.store.dtos.ErrorResponse;
-import com.codewithmosh.store.exceptions.BusinessRuleException;
-import com.codewithmosh.store.exceptions.ConflictException;
-import com.codewithmosh.store.exceptions.ForbiddenException;
-import com.codewithmosh.store.exceptions.ResourceNotFoundException;
-import com.codewithmosh.store.exceptions.UnauthorizedException;
+import com.accenture.store.dtos.ErrorResponse;
+import com.accenture.store.exceptions.AiUnavailableException;
+import com.accenture.store.exceptions.BusinessRuleException;
+import com.accenture.store.exceptions.ConflictException;
+import com.accenture.store.exceptions.ForbiddenException;
+import com.accenture.store.exceptions.ResourceNotFoundException;
+import com.accenture.store.exceptions.UnauthorizedException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -66,6 +67,16 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(BusinessRuleException.class)
     public ResponseEntity<ErrorResponse> businessRule(BusinessRuleException exception) {
         return errorResponse(400, exception.getMessage());
+    }
+
+    /**
+     * The AI provider is configured outside this application, so a missing key,
+     * a rejected key or a provider outage is reported as 503: the store itself
+     * is still working, the assistant is not.
+     */
+    @ExceptionHandler(AiUnavailableException.class)
+    public ResponseEntity<ErrorResponse> aiUnavailable(AiUnavailableException exception) {
+        return errorResponse(503, exception.getMessage());
     }
 
     @ExceptionHandler({

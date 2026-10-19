@@ -1,8 +1,8 @@
 //member 3
-package com.codewithmosh.store.config;
+package com.accenture.store.config;
 
-import com.codewithmosh.store.services.CsrfTokenService;
-import com.codewithmosh.store.exceptions.ForbiddenException;
+import com.accenture.store.services.CsrfTokenService;
+import com.accenture.store.exceptions.ForbiddenException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Component;

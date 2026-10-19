@@ -1,5 +1,5 @@
 //member 1
-package com.codewithmosh.store.dtos;
+package com.accenture.store.dtos;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;

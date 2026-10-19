@@ -1,5 +1,5 @@
 //member 1
-package com.codewithmosh.store.dtos;
+package com.accenture.store.dtos;
 
 public class CategoryDto {
     private Byte id;

@@ -1,5 +1,5 @@
 //member 2
-package com.codewithmosh.store.entities;
+package com.accenture.store.entities;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

@@ -1,5 +1,5 @@
 //member 3
-package com.codewithmosh.store.dtos;
+package com.accenture.store.dtos;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;

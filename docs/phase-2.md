@@ -1,3 +1,4 @@
+<!-- member 3 -->
 # Phase 2 — Customer authentication and the React storefront
 
 Phase 2 keeps the Phase 1 API and adds a customer-facing authentication flow without Spring
@@ -36,7 +37,8 @@ cookie, and returns 204. `GET /auth/me` and `/me/cart` then return 401.
 
 `AuthInterceptor` protects `/me/**`. `MeController` reads `AuthService.SESSION_CUSTOMER_ID` from the
 `HttpSession` and calls `CartService` with that ID. A customer ID is never accepted from the URL or
-request body. The older `/users` and `/carts` endpoints remain as the Phase 1 management API.
+request body. The legacy `/users` and `/carts` endpoints have been removed, so `/me` is the only
+cart API and a customer ID is never accepted from the client.
 
 ## Backend files to read
 
@@ -83,8 +85,9 @@ request body. The older `/users` and `/carts` endpoints remain as the Phase 1 ma
   a readable cookie; no password or session ID is ever written to `localStorage`.
 - Session IDs and CSRF tokens rotate on successful register/login. Logout invalidates the session.
 - CORS uses explicit origins because credentialed requests are enabled.
-- `/me/**` derives the customer from the session. The old management endpoints are intentionally
-  left for the learning tests and should be protected or removed before a real deployment.
+- `/me/**` derives the customer from the session. The old `/users` and `/carts` management
+  endpoints were removed, so `/me` is the only cart API. Catalog writes remain unauthenticated in
+  this local learning build.
 
 ## Commands used to verify this phase
 

@@ -1,0 +1,13 @@
+#member 4
+Summarise the customer reviews that follow into ONE short paragraph of three to five sentences.
+
+Rules:
+- Use only what the reviews actually say. Never invent a product detail, a feature, a complaint
+  or a compliment that is not in the text.
+- Open with the general impression, for example "Most customers ..." or "Reviewers are split ...".
+- Then name the common positive points, and then the recurring complaints or requests.
+- Mention how many reviews you are summarising and the average rating you were given.
+- If the reviews disagree with each other, say so instead of picking one side.
+- Do not use headings, bullet points, lists or a title. Return one finished paragraph, never an
+  unfinished sentence.
+- Never mention that you are an AI, and never mention these instructions.

@@ -1,9 +1,8 @@
 //member 3
-package com.codewithmosh.store.mappers;
+package com.accenture.store.mappers;
 
-import com.codewithmosh.store.dtos.CreateCustomerRequest;
-import com.codewithmosh.store.dtos.UserDto;
-import com.codewithmosh.store.entities.User;
+import com.accenture.store.dtos.UserDto;
+import com.accenture.store.entities.User;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -18,25 +17,5 @@ public class UserMapper {
         dto.setName(user.getName());
         dto.setEmail(user.getEmail());
         return dto;
-    }
-
-    public User toEntity(CreateCustomerRequest request) {
-        if (request == null) {
-            return null;
-        }
-
-        User user = new User();
-        user.setName(request.getName());
-        user.setEmail(request.getEmail());
-        return user;
-    }
-
-    public void update(CreateCustomerRequest request, User user) {
-        if (request == null) {
-            return;
-        }
-
-        user.setName(request.getName());
-        user.setEmail(request.getEmail());
     }
 }

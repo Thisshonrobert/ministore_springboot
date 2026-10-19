@@ -37,3 +37,27 @@ CREATE TABLE IF NOT EXISTS cart_item (
   CONSTRAINT fk_item_product FOREIGN KEY (product_id) REFERENCES products(id),
   CONSTRAINT chk_quantity CHECK (quantity BETWEEN 1 AND 100)
 );
+
+-- member 4: customer reviews and the cached AI summary of them.
+-- One review per customer per product, and at most one summary per product.
+CREATE TABLE IF NOT EXISTS reviews (
+  id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  product_id BIGINT NOT NULL,
+  user_id BIGINT NOT NULL,
+  rating INT NOT NULL,
+  comment VARCHAR(1000) NOT NULL,
+  created_at DATETIME NOT NULL,
+  CONSTRAINT uq_review_product_user UNIQUE (product_id, user_id),
+  CONSTRAINT fk_review_product FOREIGN KEY (product_id) REFERENCES products(id),
+  CONSTRAINT fk_review_user FOREIGN KEY (user_id) REFERENCES users(id),
+  CONSTRAINT chk_rating CHECK (rating BETWEEN 1 AND 5)
+);
+CREATE TABLE IF NOT EXISTS review_summary (
+  id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  product_id BIGINT NOT NULL,
+  content VARCHAR(2000) NOT NULL,
+  generated_at DATETIME NOT NULL,
+  expires_at DATETIME NOT NULL,
+  CONSTRAINT uq_summary_product UNIQUE (product_id),
+  CONSTRAINT fk_summary_product FOREIGN KEY (product_id) REFERENCES products(id)
+);

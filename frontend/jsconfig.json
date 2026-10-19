@@ -1,4 +1,5 @@
 {
+  "//": "member 4",
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {

@@ -1,5 +1,5 @@
 //member 3
-package com.codewithmosh.store.entities;
+package com.accenture.store.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;

@@ -1,14 +1,14 @@
 //member 1
-package com.codewithmosh.store.services;
+package com.accenture.store.services;
 
-import com.codewithmosh.store.dtos.CategoryDto;
-import com.codewithmosh.store.dtos.CategoryRequest;
-import com.codewithmosh.store.entities.Category;
-import com.codewithmosh.store.exceptions.ConflictException;
-import com.codewithmosh.store.exceptions.ResourceNotFoundException;
-import com.codewithmosh.store.mappers.CategoryMapper;
-import com.codewithmosh.store.repositories.CategoryRepository;
-import com.codewithmosh.store.repositories.ProductRepository;
+import com.accenture.store.dtos.CategoryDto;
+import com.accenture.store.dtos.CategoryRequest;
+import com.accenture.store.entities.Category;
+import com.accenture.store.exceptions.ConflictException;
+import com.accenture.store.exceptions.ResourceNotFoundException;
+import com.accenture.store.mappers.CategoryMapper;
+import com.accenture.store.repositories.CategoryRepository;
+import com.accenture.store.repositories.ProductRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

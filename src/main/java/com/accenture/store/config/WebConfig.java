@@ -1,5 +1,5 @@
 //member 4
-package com.codewithmosh.store.config;
+package com.accenture.store.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
@@ -33,9 +33,12 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        // Mutation endpoints that use the session cookie need a CSRF token.
+        // Mutation endpoints that use the session cookie need a CSRF token. The
+        // chat and the summary endpoints are read-only for the store, but they
+        // still start work on the server, so they are protected the same way.
         registry.addInterceptor(csrfInterceptor)
-                .addPathPatterns("/auth/register", "/auth/login", "/auth/logout", "/me/**");
+                .addPathPatterns("/auth/register", "/auth/login", "/auth/logout", "/me/**",
+                        "/chat", "/products/*/reviews/summary");
 
         // /me/** derives the customer from the session; no customer ID is trusted from the client.
         registry.addInterceptor(authInterceptor)

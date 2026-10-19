@@ -1,13 +1,13 @@
 //member 4
-package com.codewithmosh.store.mappers;
+package com.accenture.store.mappers;
 
-import com.codewithmosh.store.dtos.CartDto;
-import com.codewithmosh.store.dtos.CartItemDto;
-import com.codewithmosh.store.dtos.CartProductDto;
-import com.codewithmosh.store.entities.Cart;
-import com.codewithmosh.store.entities.CartItem;
-import com.codewithmosh.store.entities.Product;
-import com.codewithmosh.store.entities.User;
+import com.accenture.store.dtos.CartDto;
+import com.accenture.store.dtos.CartItemDto;
+import com.accenture.store.dtos.CartProductDto;
+import com.accenture.store.entities.Cart;
+import com.accenture.store.entities.CartItem;
+import com.accenture.store.entities.Product;
+import com.accenture.store.entities.User;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;

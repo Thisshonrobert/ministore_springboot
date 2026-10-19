@@ -1,19 +1,19 @@
 //member 4
-package com.codewithmosh.store.services;
+package com.accenture.store.services;
 
-import com.codewithmosh.store.dtos.CartDto;
-import com.codewithmosh.store.dtos.CartItemDto;
-import com.codewithmosh.store.entities.Cart;
-import com.codewithmosh.store.entities.CartItem;
-import com.codewithmosh.store.entities.Product;
-import com.codewithmosh.store.entities.User;
-import com.codewithmosh.store.exceptions.BusinessRuleException;
-import com.codewithmosh.store.exceptions.ConflictException;
-import com.codewithmosh.store.exceptions.ResourceNotFoundException;
-import com.codewithmosh.store.mappers.CartMapper;
-import com.codewithmosh.store.repositories.CartRepository;
-import com.codewithmosh.store.repositories.ProductRepository;
-import com.codewithmosh.store.repositories.UserRepository;
+import com.accenture.store.dtos.CartDto;
+import com.accenture.store.dtos.CartItemDto;
+import com.accenture.store.entities.Cart;
+import com.accenture.store.entities.CartItem;
+import com.accenture.store.entities.Product;
+import com.accenture.store.entities.User;
+import com.accenture.store.exceptions.BusinessRuleException;
+import com.accenture.store.exceptions.ConflictException;
+import com.accenture.store.exceptions.ResourceNotFoundException;
+import com.accenture.store.mappers.CartMapper;
+import com.accenture.store.repositories.CartRepository;
+import com.accenture.store.repositories.ProductRepository;
+import com.accenture.store.repositories.UserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -49,12 +49,6 @@ public class CartService {
         cart.setUser(user);
         Cart savedCart = cartRepository.save(cart);
         return cartMapper.toCartDto(savedCart);
-    }
-
-    @Transactional(readOnly = true)
-    public CartDto getCart(UUID id) {
-        Cart cart = findCart(id);
-        return cartMapper.toCartDto(cart);
     }
 
     @Transactional(readOnly = true)
@@ -108,11 +102,6 @@ public class CartService {
     public void deleteCart(UUID id) {
         Cart cart = findCartForUpdate(id);
         cartRepository.delete(cart);
-    }
-
-    private Cart findCart(UUID id) {
-        return cartRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Cart not found."));
     }
 
     private Cart findCartForUpdate(UUID id) {

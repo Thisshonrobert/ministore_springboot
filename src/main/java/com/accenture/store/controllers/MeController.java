@@ -1,12 +1,12 @@
 //member 4
-package com.codewithmosh.store.controllers;
+package com.accenture.store.controllers;
 
-import com.codewithmosh.store.dtos.AddItemsToCart;
-import com.codewithmosh.store.dtos.CartDto;
-import com.codewithmosh.store.dtos.CartItemDto;
-import com.codewithmosh.store.dtos.UpdateCartItemRequest;
-import com.codewithmosh.store.services.AuthService;
-import com.codewithmosh.store.services.CartService;
+import com.accenture.store.dtos.AddItemsToCart;
+import com.accenture.store.dtos.CartDto;
+import com.accenture.store.dtos.CartItemDto;
+import com.accenture.store.dtos.UpdateCartItemRequest;
+import com.accenture.store.services.AuthService;
+import com.accenture.store.services.CartService;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;

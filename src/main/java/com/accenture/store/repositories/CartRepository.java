@@ -1,7 +1,7 @@
 //member 4
-package com.codewithmosh.store.repositories;
+package com.accenture.store.repositories;
 
-import com.codewithmosh.store.entities.Cart;
+import com.accenture.store.entities.Cart;
 import jakarta.persistence.LockModeType;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Lock;

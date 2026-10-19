@@ -1,10 +1,10 @@
 //member 3
-package com.codewithmosh.store;
+package com.accenture.store;
 
-import com.codewithmosh.store.entities.User;
-import com.codewithmosh.store.repositories.UserRepository;
-import com.codewithmosh.store.services.AuthService;
-import com.codewithmosh.store.services.CsrfTokenService;
+import com.accenture.store.entities.User;
+import com.accenture.store.repositories.UserRepository;
+import com.accenture.store.services.AuthService;
+import com.accenture.store.services.CsrfTokenService;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;

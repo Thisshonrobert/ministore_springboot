@@ -1,7 +1,7 @@
 //member 1
-package com.codewithmosh.store.repositories;
+package com.accenture.store.repositories;
 
-import com.codewithmosh.store.entities.Category;
+import com.accenture.store.entities.Category;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface CategoryRepository extends JpaRepository<Category, Byte> {

@@ -1,8 +1,8 @@
 //member 3
-package com.codewithmosh.store.config;
+package com.accenture.store.config;
 
-import com.codewithmosh.store.exceptions.UnauthorizedException;
-import com.codewithmosh.store.services.AuthService;
+import com.accenture.store.exceptions.UnauthorizedException;
+import com.accenture.store.services.AuthService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;

@@ -1,6 +1,8 @@
+//member 3
 import { useEffect } from 'react'
 import { Link, NavLink, Outlet, useLocation } from 'react-router-dom'
 import { ArrowUpRight, ShoppingBag, Store, UserRound } from 'lucide-react'
+import { ChatWidget } from '@/components/site/ChatWidget'
 import { useAuth } from '@/context/AuthContext'
 import { cn } from '@/lib/utils'
 
@@ -134,6 +136,8 @@ export function SiteLayout() {
           </div>
         </div>
       </footer>
+
+      <ChatWidget />
     </div>
   )
 }

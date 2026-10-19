@@ -1,3 +1,4 @@
+<!-- member 4 -->
 # Mini Store frontend
 
 React 19 + Vite + Tailwind CSS + shadcn/ui components for the Mini Store backend.
@@ -60,12 +61,15 @@ frontend origin to the backend's `CORS_ALLOWED_ORIGINS`.
 ```text
 src/
   components/ui/        shadcn/ui primitives (Button, Input, Card, Alert, Badge, Skeleton, Sonner, ...)
-  components/site/      SiteLayout, AuthLayout, ProductCard, QuantityStepper, RequireAuth, EmptyState
+  components/site/      SiteLayout, AuthLayout, ProductCard, QuantityStepper, RequireAuth, EmptyState,
+                        ChatWidget, ProductReviews, StarRating, AiText
   context/AuthContext.jsx
   lib/api.js            fetch + CSRF handling
   lib/cart.js           get-or-create cart
   lib/format.js         INR price formatting and small helpers
-  pages/                ShopPage, LoginPage, RegisterPage, CartPage, AccountPage, NotFoundPage
+  lib/chat.js           POST /chat wrapper (shop assistant)
+  lib/reviews.js        review list, review creation and summary wrappers
+  pages/                ShopPage, ProductPage, LoginPage, RegisterPage, CartPage, AccountPage, NotFoundPage
   App.jsx               routes and providers
   index.css             Tailwind v4 theme, paper textures, motion
 ```

@@ -1,3 +1,4 @@
+//member 3
 import { useEffect, useMemo, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { toast } from 'sonner'
@@ -16,7 +17,7 @@ import { ProductGridSkeleton } from '@/components/site/ProductGridSkeleton'
 import { EmptyState } from '@/components/site/EmptyState'
 import { useAuth } from '@/context/AuthContext'
 import { api } from '@/lib/api'
-import { getOrCreateCart } from '@/lib/cart'
+import { addProductToCart } from '@/lib/cart'
 import { pluralize } from '@/lib/format'
 import { cn } from '@/lib/utils'
 
@@ -108,8 +109,7 @@ export function ShopPage() {
 
     setAddingId(product.id)
     try {
-      await getOrCreateCart()
-      await api('/me/cart/items', { method: 'POST', body: { productId: product.id } })
+      await addProductToCart(product.id)
       toast.success(`${product.name} is in your cart.`, {
         description: 'Your total will be waiting on the cart page.',
         action: { label: 'View cart', onClick: () => navigate('/cart') },

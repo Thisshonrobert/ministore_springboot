@@ -1,5 +1,5 @@
 //member 4
-package com.codewithmosh.store.dtos;
+package com.accenture.store.dtos;
 
 import java.math.BigDecimal;
 

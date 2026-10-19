@@ -1,3 +1,4 @@
+<!-- member 2 -->
 # Member 2 — Products
 
 
@@ -12,9 +13,9 @@
 
 Shared reading first: `README.md` → `pom.xml` (dependencies) →
 `src/main/resources/application.yaml` (MySQL and `.env`) →
-`src/main/java/com/codewithmosh/store/StoreApplication.java` (`@SpringBootApplication` starts/configures the app).
+`src/main/java/com/accenture/store/StoreApplication.java` (`@SpringBootApplication` starts/configures the app).
 
-Below, Java paths are relative to `src/main/java/com/codewithmosh/store/`.
+Below, Java paths are relative to `src/main/java/com/accenture/store/`.
 
 
 ## Read your files in this order
@@ -28,6 +29,7 @@ Below, Java paths are relative to `src/main/java/com/codewithmosh/store/`.
 7. `controllers/GlobalExceptionHandler.java`: Member 3 converts validation exceptions into 400 plus fieldErrors, and domain exceptions into 404/409.
 8. `src/main/resources/application.yaml`: Jackson rejects a fractional value for an integer field, so quantity `1.9` becomes a 400 instead of being silently rounded.
 9. `database/setup.sql`: products.category_id references categories.id. DECIMAL(10,2) stores money; BigDecimal performs decimal arithmetic without binary floating-point rounding.
+10. `src/test/java/com/accenture/store/ProductIntegrationTests.java`: your slice's Spring `MockMvc` test for the category mapping, filter, update and validation. It extends `IntegrationTestSupport` (shared session, CSRF and fixture helpers). Run it with `.\mvnw.cmd test`.
 
 ## Trace and demo
 

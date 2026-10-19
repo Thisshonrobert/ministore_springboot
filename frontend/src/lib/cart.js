@@ -1,3 +1,4 @@
+//member 3
 import { api } from '@/lib/api'
 
 /**
@@ -25,4 +26,10 @@ export async function getOrCreateCart() {
 
 export function cartItemCount(cart) {
   return (cart?.items || []).reduce((total, item) => total + item.quantity, 0)
+}
+
+/** Adds one unit of a product to the signed-in customer's cart. */
+export async function addProductToCart(productId) {
+  await getOrCreateCart()
+  return api('/me/cart/items', { method: 'POST', body: { productId } })
 }

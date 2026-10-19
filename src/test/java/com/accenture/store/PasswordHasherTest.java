@@ -1,7 +1,7 @@
 //member 3
-package com.codewithmosh.store;
+package com.accenture.store;
 
-import com.codewithmosh.store.services.PasswordHasher;
+import com.accenture.store.services.PasswordHasher;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;

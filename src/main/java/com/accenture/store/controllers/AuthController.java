@@ -1,13 +1,13 @@
 //member 3
-package com.codewithmosh.store.controllers;
+package com.accenture.store.controllers;
 
-import com.codewithmosh.store.dtos.CsrfTokenResponse;
-import com.codewithmosh.store.dtos.LoginRequest;
-import com.codewithmosh.store.dtos.RegisterRequest;
-import com.codewithmosh.store.dtos.UserDto;
-import com.codewithmosh.store.exceptions.UnauthorizedException;
-import com.codewithmosh.store.services.AuthService;
-import com.codewithmosh.store.services.CsrfTokenService;
+import com.accenture.store.dtos.CsrfTokenResponse;
+import com.accenture.store.dtos.LoginRequest;
+import com.accenture.store.dtos.RegisterRequest;
+import com.accenture.store.dtos.UserDto;
+import com.accenture.store.exceptions.UnauthorizedException;
+import com.accenture.store.services.AuthService;
+import com.accenture.store.services.CsrfTokenService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;

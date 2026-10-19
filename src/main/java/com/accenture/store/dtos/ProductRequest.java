@@ -1,5 +1,5 @@
 //member 2
-package com.codewithmosh.store.dtos;
+package com.accenture.store.dtos;
 
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.Digits;

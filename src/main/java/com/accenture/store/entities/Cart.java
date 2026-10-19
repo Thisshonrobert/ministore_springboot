@@ -1,5 +1,5 @@
 //member 4
-package com.codewithmosh.store.entities;
+package com.accenture.store.entities;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;

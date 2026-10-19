@@ -1,4 +1,5 @@
-﻿# Verification â€” 12 October 2026
+<!-- member 4 -->
+# Verification — 12 October 2026
 
 ## Previously recorded application checks
 
@@ -26,7 +27,7 @@ It does not establish how the other demo records were created. Repository inspec
 seed script, `data.sql`, or startup data initializer. Their presence is not evidence of scripted seeding.
 The new seed verification did not modify these existing `mini_store` rows.
 
-## Seed-script checks â€” 12 October 2026
+## Seed-script checks — 12 October 2026
 
 - Tested on MySQL 8.0.45 in a fresh, separate `mini_store_seed_final_20261012` database.
   Only database names in copies of setup/seed were substituted for isolation; `setup.sql` is unchanged.
@@ -44,15 +45,15 @@ The new seed verification did not modify these existing `mini_store` rows.
   These tests verify application behavior; the seed checks above used real MySQL separately.
 - Started the packaged application on port 18081 against the seeded test database using environment overrides,
   without modifying `.env`. Hibernate schema validation passed. The browser customer/product selectors showed
-  the seeded data, and selecting Demo Customer displayed Notebook quantity 3, Pen quantity 1 and total â‚¹850.00.
-  Selecting Team Customer displayed an empty cart and â‚¹0.00. The test application was stopped afterward.
+  the seeded data, and selecting Demo Customer displayed Notebook quantity 3, Pen quantity 1 and total ₹850.00.
+  Selecting Team Customer displayed an empty cart and ₹0.00. The test application was stopped afterward.
 
 The seed is manual and insert-only. Reserve its two demo emails for demo customers, and run it sequentially
 with the application stopped because category/product names have no unique constraint.
 Existing prices, quantities and cart ownership are preserved; an edited demo cart is not reset to 850.00,
 and a pre-existing Team cart is not cleared. No schema change or automatic startup seeding was added.
 
-## Refactor verification â€” 18 October 2026
+## Refactor verification — 18 October 2026
 
 - Removed Lombok, MapStruct and Thymeleaf from `pom.xml` and the annotation-processor configuration.
   Removed all related imports/annotations, the Thymeleaf templates, the page controller and the template JavaScript/CSS.
@@ -70,7 +71,7 @@ and a pre-existing Team cart is not cleared. No schema change or automatic start
 - `/`, `/ui/products` and the other former page routes now return the JSON 404 response, confirming that
   the backend is API-only and ready for a React frontend.
 
-## Phase 2 authentication and React verification â€” 18 October 2026
+## Phase 2 authentication and React verification — 18 October 2026
 
 - `.\mvnw.cmd clean package`: BUILD SUCCESS. 19 tests, 0 failures, 0 errors, 0 skipped
   (9 original store integration tests, 8 customer-auth integration tests, 2 password-hasher tests).
@@ -98,7 +99,7 @@ and a pre-existing Team cart is not cleared. No schema change or automatic start
 - CORS preflight from `http://localhost:5173` returned 200 with
   `Access-Control-Allow-Origin: http://localhost:5173`, `Access-Control-Allow-Credentials: true`,
   and the expected methods/headers.
-- Browser checks used Playwright CLI with Microsoft Edge at 1280Ã—720 and 390Ã—844. The shop loaded
+- Browser checks used Playwright CLI with Microsoft Edge at 1280×720 and 390×844. The shop loaded
   real products/categories through the Vite `/api` proxy; registration validation, successful
   registration, add-to-cart, cart quantity update, refresh persistence, account details, logout,
   protected-route redirect, invalid login, valid login, and cart restoration all passed. The browser
@@ -109,20 +110,90 @@ and a pre-existing Team cart is not cleared. No schema change or automatic start
 - Screenshots from the browser pass are local artifacts under `target/screenshots/` (the
   `target/` directory is ignored by Git).
 
-### Phase 2 remaining setup step
+### Phase 2 authentication migration
 
-`database/auth-migration.sql` has not been applied to this machine's real `mini_store` database
-because the application account is not allowed to `ALTER` tables. An administrator must run that
-script once (Workbench or `mysql -u <admin> -p mini_store < database/auth-migration.sql`) before
-starting the default MySQL profile; otherwise Hibernate schema validation will report the missing
-`password_hash` column. The script is idempotent and also sets the documented demo passwords when
-their hashes are empty.
+`database/auth-migration.sql` has been applied to this machine's `mini_store` database with an
+administrator account. It added the nullable `users.password_hash` column and set the PBKDF2 hashes
+for the two demo customers. Hibernate schema validation now passes against MySQL, and both demo
+accounts can sign in.
+
+## Phase 3 reviews and AI features - 18 October 2026
+
+- `.\mvnw.cmd test`: 28 tests, 0 failures, 0 errors, 0 skipped (H2 test profile). Breakdown:
+  9 `StoreIntegrationTests`, 8 `CustomerAuthIntegrationTests`, 9 `AiFeatureIntegrationTests`,
+  2 `PasswordHasherTest`.
+- The 9 AI tests replace the AI provider with a stub (`@MockitoBean AiClient`) and cover: a chat
+  request that matches products and one that does not, a blank question (400) and a question longer
+  than 1000 characters (400), review creation from the session customer, a duplicate review (409),
+  anonymous review creation (401), an empty review list, a summary request with too few reviews, a
+  successful summary plus its cache, and a missing AI key (503).
+- `npm run lint` in `frontend/`: `oxlint` reported 0 errors and 7 advisory warnings (React
+  `set-state-in-effect` and `only-export-components` rules, the same advisory pattern as Phase 2).
+- `npm run build` in `frontend/`: Vite 8.3.4 production build succeeded, 1,971 modules transformed.
+  Output: `dist/index.html` 1.11 kB, CSS 53.51 kB, JS 419.31 kB (124.01 kB gzip).
+- **Live Gemini calls could not be verified.** With the key in the local `.env`, every model tried
+  returned `403 PERMISSION_DENIED` ("Your project has been denied access"), `429` with a quota limit
+  of 0, or `404` for models retired for new users. Therefore the real chat reply and the real review
+  summary are not part of these recorded results; only the stubbed path is verified. The endpoint
+  contract, the grounding queries, the caching, the validation and the 503 behaviour are all
+  exercised by the tests above. The default model is `gemini-3.5-flash` and can be overridden with
+  `AI_MODEL` once a permitted key is available.
+- `database/ai-migration.sql` adds the `reviews` and `review_summary` tables and is idempotent; the
+  same tables are present in the updated `database/setup.sql`. Hibernate `ddl-auto: validate` requires
+  them before the app starts.
+
+## Seeded reviews and a live summary check - 19 October 2026
+
+- `database/seed.sql` now also seeds one product with reviews. The Notebook gets four reviews from
+  four demo readers (`reader1@ministore.example` .. `reader4@ministore.example`), ratings 5, 5, 4 and
+  2 (average 4.0), with `created_at` spread over the days before the run so "newest first" is stable.
+  Four reviewers are used because a summary needs `REVIEWS_MINIMUM_FOR_SUMMARY` (3) and one customer
+  may review a product only once; the comments mix praise with a durability complaint so the summary
+  has both a positive point and a caveat. No `review_summary` row is seeded.
+- Applied to this machine's `mini_store` (MySQL 8.0.45) with the `mini_store_app` account:
+  `source database/seed.sql` exited 0. The Notebook then reported `reviewCount 4` and
+  `averageRating 4.0` with four distinct reviewers. Running the seed a second time left the review
+  count at 4 and the reader user count at 4, so the review inserts are idempotent like the rest of the
+  script.
+- `.\mvnw.cmd test`: 28 tests, 0 failures, 0 errors, 0 skipped. `AiFeatureIntegrationTests` (9 tests)
+  includes `summaryIsGeneratedFromRealReviewsCachedAndInvalidatedByANewReview`, which exercises the
+  whole summariser (generation from real rows, the cache and invalidation by a new review) against a
+  stubbed `AiClient`.
+- Live provider check against the running app on port 8080 (MySQL, `.env` with
+  `AI_MODEL=gemini-3.1-flash-lite`): `GET /auth/csrf` returned a 43-character token, and
+  `POST /products/1/reviews/summary` with `X-XSRF-TOKEN` returned 200 with this real Gemini summary
+  of the four seeded reviews:
+
+  > Most customers are satisfied with this notebook, which holds an average rating of 4.0 out of 5
+  > across four reviews. Users appreciate the smooth paper quality and the overall value for the
+  > price. However, opinions on the durability are split, as some reviewers praised the binding while
+  > others reported that pages came loose after a few weeks. Additionally, one customer noted that the
+  > cover is too thin for reliable protection in a backpack.
+
+  The response carried `generatedAt` 2026-10-19T13:28:42.999 and `expiresAt` one week later. A second
+  `POST` returned the same `generatedAt` (a cache hit, so no second provider call), and
+  `GET /products/1/reviews` then served the same cached summary. `review_summary` held exactly one row
+  for product 1. The summary is left cached so the demo product page shows it at once; a new review
+  clears it and it expires after `REVIEW_SUMMARY_TTL_HOURS`.
 
 ## Limits and setup
 
 Category ID intentionally retains the plan's Byte/TINYINT type: at most 127 generated IDs,
 including IDs of deleted categories. For a larger catalog, widen entity/DTO/controller/repository IDs and SQL together.
 Totals use current prices; there is no checkout, historical pricing or inventory.
-The local app now has customer authentication; the original `/users` and `/carts` management
-endpoints remain open for the learning tests and should be protected or removed before deployment.
+The local app now has customer authentication; the legacy `/users` and `/carts` management
+endpoints have been removed, so customer records and carts are only reachable through `/auth` and
+`/me`. Catalog endpoints remain public.
 Credentials are in the private .env file. Workbench setup and environment instructions are in README.md.
+The AI features additionally need an external provider and a permitted `AI_API_KEY`; without one the
+store still runs and the AI endpoints return 503. The assistant can only see the product catalogue,
+and the review summary can only see a product's reviews.
+
+## Test suite reorganisation — 19 October 2026
+
+The single `StoreIntegrationTests` class was split into `CategoryIntegrationTests` (member 1),
+`ProductIntegrationTests` (member 2), and `CartIntegrationTests` plus `ErrorHandlingIntegrationTests`
+(member 3), all sharing a new `IntegrationTestSupport` base. `AiFeatureIntegrationTests` moved to
+member 3, so members 1–3 now own every test and member 4 owns none. The reported earlier sections
+still name the original single class on purpose, as a record of what was verified at the time. The
+suite is unchanged at 28 tests: `.\mvnw.cmd test` reports 28 tests, 0 failures, 0 errors, 0 skipped.

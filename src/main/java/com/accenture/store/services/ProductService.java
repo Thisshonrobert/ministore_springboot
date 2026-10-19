@@ -1,16 +1,18 @@
 //member 2
-package com.codewithmosh.store.services;
+package com.accenture.store.services;
 
-import com.codewithmosh.store.dtos.ProductDto;
-import com.codewithmosh.store.dtos.ProductRequest;
-import com.codewithmosh.store.entities.Category;
-import com.codewithmosh.store.entities.Product;
-import com.codewithmosh.store.exceptions.ConflictException;
-import com.codewithmosh.store.exceptions.ResourceNotFoundException;
-import com.codewithmosh.store.mappers.ProductMapper;
-import com.codewithmosh.store.repositories.CartItemRepository;
-import com.codewithmosh.store.repositories.CategoryRepository;
-import com.codewithmosh.store.repositories.ProductRepository;
+import com.accenture.store.dtos.ProductDto;
+import com.accenture.store.dtos.ProductRequest;
+import com.accenture.store.entities.Category;
+import com.accenture.store.entities.Product;
+import com.accenture.store.exceptions.ConflictException;
+import com.accenture.store.exceptions.ResourceNotFoundException;
+import com.accenture.store.mappers.ProductMapper;
+import com.accenture.store.repositories.CartItemRepository;
+import com.accenture.store.repositories.CategoryRepository;
+import com.accenture.store.repositories.ProductRepository;
+import com.accenture.store.repositories.ReviewRepository;
+import com.accenture.store.repositories.ReviewSummaryRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,15 +25,21 @@ public class ProductService {
     private final ProductRepository productRepository;
     private final CategoryRepository categoryRepository;
     private final CartItemRepository cartItemRepository;
+    private final ReviewRepository reviewRepository;
+    private final ReviewSummaryRepository reviewSummaryRepository;
     private final ProductMapper productMapper;
 
     public ProductService(ProductRepository productRepository,
                           CategoryRepository categoryRepository,
                           CartItemRepository cartItemRepository,
+                          ReviewRepository reviewRepository,
+                          ReviewSummaryRepository reviewSummaryRepository,
                           ProductMapper productMapper) {
         this.productRepository = productRepository;
         this.categoryRepository = categoryRepository;
         this.cartItemRepository = cartItemRepository;
+        this.reviewRepository = reviewRepository;
+        this.reviewSummaryRepository = reviewSummaryRepository;
         this.productMapper = productMapper;
     }
 
@@ -79,6 +87,10 @@ public class ProductService {
             throw new ConflictException("Remove this product from all carts first.");
         }
 
+        // A product's reviews and their cached summary belong to the product, so
+        // they go with it instead of blocking the delete.
+        reviewSummaryRepository.deleteByProductId(id);
+        reviewRepository.deleteByProductId(id);
         productRepository.delete(product);
     }
 
